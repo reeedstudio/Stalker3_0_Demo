@@ -24,7 +24,8 @@
 #include "mbed.h"
 #include "IOT_Mbed.h"
 #include "IOT_MbedDfs.h"
-#include "IOT_Debug.h"
+//#include "IOT_Debug.h"
+#include "i2c_uart.h"
 
 extern Serial serial1;        // tx, rx
 extern void delay(int ms);
@@ -49,44 +50,65 @@ int IOT_Mbed::checkAT(int timeout)
 {
 		return sendCmdAndWaitForRest("AT\r\n", "OK", timeout);
 }
+
 int IOT_Mbed::waitString(const char *str, int timeout)			    // time out : s
 {
     int len = strlen(str);
+	
+		DBG("get in waitString:\r\n");
+		char tmp[30];
+		sprintf(tmp, "len = %d\r\n", len);
+	
     int sum=0;
 
     tcnt.start();                                                   // start timer
     
     for(;;)
     {
-        if(serial1.readable())
+        while(serial1.readable())
         {
             char c = serial1.getc();
+						DBG(c);
             sum = (c==str[sum]) ? sum+1 : 0;
-            if(sum == len)break;
+            if(sum == len)goto HERE;
         }
         
         if(tcnt.read() > timeout)           // time out
         {
             tcnt.stop();
             tcnt.reset();
+					
+						while(serial1.readable())               // display the other thing..
+						{
+								char c = serial1.getc();
+								DBG(c);
+						}
+						
+						DBG("time out\r\n");
             return ERRTOUT;
         }
     }
-    
+
+HERE:
     tcnt.stop();                            // stop timer
     tcnt.reset();                           // clear timer
 	
     while(serial1.readable())               // display the other thing..
     {
         char c = serial1.getc();
+				DBG(c);
     }
 
-    return (len == sum);
+    return 1;
 }
 
 int IOT_Mbed::sendCmdAndWaitForRest(char *dta, const char *resq, int timeout)
 {
     sendCmd(dta);
+	//	DBG("send: ");
+	//	DBG(dta);
+	//	DBG("\r\n");
+		//wait(0.1);
     return waitString(resq, timeout);
 }
 
@@ -98,7 +120,23 @@ void IOT_Mbed::sendCmd(char *dta)
 void IOT_Mbed::connectTCP()
 {
     //sendCmdAndWaitForRest(STRCSQ, "OK", 10);
-    sendCmdAndWaitForRest(STROPENGPRS, "OK", 20);
+		checkAT(10);
+	
+    while(1)
+		{
+				if(sendCmdAndWaitForRest(STROPENGPRS, "OK", 20) == ERRTOUT)
+				{
+						DBG("GPRS OPEN ERR, OPEN AGAIN\r\n");
+						wait(5);
+				}
+				else
+				{
+						DBG("GPRS OPEN OK!\r\n");
+						break;
+				}
+		}
+
+		
     sendCmdAndWaitForRest(STRSETGPRS, "OK", 20);
     sendCmdAndWaitForRest(STRSETAPN, "OK", 20);
     
@@ -109,10 +147,21 @@ void IOT_Mbed::connectTCP()
 
 void IOT_Mbed::connectTCP(char *ip, char *port)
 {
-		while(sendCmdAndWaitForRest(STROPENGPRS, "OK", 20) == ERRTOUT)
+		// open gprs
+		while(1)
 		{
-				wait(5);
+				if(sendCmdAndWaitForRest(STROPENGPRS, "OK", 20) == ERRTOUT)
+				{
+						DBG("GPRS OPEN ERR, OPEN AGAIN\r\n");
+						wait(5);
+				}
+				else
+				{
+						DBG("GPRS OPEN OK!\r\n");
+						break;
+				}
 		}
+
 
     sendCmdAndWaitForRest(STRSETGPRS, "OK", 20);
     sendCmdAndWaitForRest(STRSETAPN, "OK", 20);
@@ -176,6 +225,7 @@ void IOT_Mbed::postDtaToYeelink(char *url, char *apikey, int sensorDta)
     while(serial1.readable())
     {
         char c = serial1.getc();
+				DBG(c);
     }
     
     sendCmdAndWaitForRest(STRCLOSE, "OK", 20);

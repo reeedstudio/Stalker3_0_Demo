@@ -28,7 +28,7 @@
 ### ADS-LD Output File: '.\build\Stalker3_0_Demo.axf'
 ### ADS-LD Command File: '.\build\Stalker3_0_Demo.lnp'
 ### Checking for dirty Components...
-### Creating CmdFile '.\build\Stalker3_0_Demo.lnp', Handle=0x00001390
+### Creating CmdFile '.\build\Stalker3_0_Demo.lnp', Handle=0x00002C08
 ### Writing '.lnp' file
 ### ADS-LD Command file '.\build\Stalker3_0_Demo.lnp' is ready.
 ### ADS-LD: About to start ADS-LD Thread.

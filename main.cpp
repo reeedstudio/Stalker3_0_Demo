@@ -26,8 +26,10 @@
 #include "Stalker3_0_hw.h"
 #include "i2c_uart.h"
 
+
 Serial serial1(P0_19, P0_18);        // tx, rx
 Timer tcnt;
+
 
 char dtaUart[100];
 char dtaUartLen = 0;
@@ -44,30 +46,78 @@ void delay(int ms)
     wait_ms(ms);
 }
 
-void test_i2c_uart()
+#if 0
+void iot_demo()
 {
-	for(int i=0; i<10; i++)
-	{
-		debug_i2c("hello world\r\n");
-	
-	//	wait(0.1);
-	}
-	
-	while(1);
-}
 
-int main(void) 
-{
-		test_i2c_uart();
-    serial1.baud(115200);
-    if(iot_hw.init()==1)
+START:
+		EG10_PWROFF();					// eg10 power off
+		wait(1);							
+		EG10_PWRON();						// eg10 power on
+		wait(1);
+		if(iot_hw.init()==1)
     {
         iot_hw.EG10StateLed(1);
+				DBG("hardware init ok\r\n");
     }
     else
     {
+				DBG("hardware init fail\r\n");
+				DBG("hardware init again\r\n");
+				goto START;
+    }
+		
+		DBG("wait ten second\r\n");
+		wait(10);
+		
+		
+		
+		
+}
+
+#endif
+
+int main(void) 
+{
+
+    serial1.baud(115200);
+	
+	
+
+	
+		DBG("begin to init hardware\r\n");
+    if(iot_hw.init()==1)
+    {
+        iot_hw.EG10StateLed(1);
+				DBG("hardware init ok\r\n");
+    }
+    else
+    {
+				DBG("hardware init err\r\n");
         while(1);
     }
+		
+/*		
+				while(1)
+		{
+				serial1.printf("AT\r\n");
+				wait(0.01);
+				while(serial1.readable())               // display the other thing..
+				{
+						char c = serial1.getc();
+						DBG(c);
+				}
+				
+				wait(1);
+				
+								while(serial1.readable())               // display the other thing..
+				{
+						char c = serial1.getc();
+						DBG(c);
+				}
+		}
+		*/
+		
     //test_rtc();
     wait(5); 
     IOT.init(HTTP_POST_URL, YEELINK_APIKEY);

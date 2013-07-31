@@ -11,6 +11,13 @@ void debug_i2c(char *dta)
 {
 		int len = strlen(dta);
 		i2c_debug.write(ADDRESS, dta, len);
-		wait_ms(10);
+		//wait_ms(10);
+}
+
+void debug_i2c(char dta)
+{
+		char dta1[5];
+		sprintf(dta1, "%c", dta);
+		debug_i2c(dta1);
 }
 //

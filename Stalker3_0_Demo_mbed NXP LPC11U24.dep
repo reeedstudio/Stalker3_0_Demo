@@ -1,5 +1,5 @@
 Dependencies for Project 'Stalker3_0_Demo', Target 'mbed NXP LPC11U24': (DO NOT MODIFY !)
-F (main.cpp)(0x51F940FB)(--cpp -c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork -I. -Imbed -Imbed/LPC11U24 -Imbed/LPC11U24/ARM -I.\hardware -I.\tcp_yeelink -I.\i2c_uart --gnu -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\NXP\LPC11Uxx -DTARGET_LPC11U24 -DNDEBUG -DTOOLCHAIN_ARM -D__CMSIS_RTOS -D__CORTEX_M0 -o ".\build\main.o" --omf_browse ".\build\main.crf" --depend ".\build\main.d")
+F (main.cpp)(0x51F94F94)(--cpp -c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork -I. -Imbed -Imbed/LPC11U24 -Imbed/LPC11U24/ARM -I.\hardware -I.\tcp_yeelink -I.\i2c_uart --gnu -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\NXP\LPC11Uxx -DTARGET_LPC11U24 -DNDEBUG -DTOOLCHAIN_ARM -D__CMSIS_RTOS -D__CORTEX_M0 -o ".\build\main.o" --omf_browse ".\build\main.crf" --depend ".\build\main.d")
 I (.\tcp_yeelink\IOT_Mbed.h)(0x51F91F95)
 I (mbed\mbed.h)(0x51F8B1F4)
 I (mbed\platform.h)(0x51F8B1F4)
@@ -73,10 +73,10 @@ I (mbed\gpio_irq_api.h)(0x51F8B1F4)
 I (mbed\wait_api.h)(0x51F8B1F4)
 I (mbed\sleep_api.h)(0x51F8B1F4)
 I (mbed\rtc_time.h)(0x51F8B1F4)
-I (.\tcp_yeelink\IOT_MbedDfs.h)(0x51F91F95)
+I (.\tcp_yeelink\IOT_MbedDfs.h)(0x51F94A03)
 I (.\hardware\Stalker3_0_hw.h)(0x51F927A2)
 I (.\hardware\Stalker3_0_hw_dfs.h)(0x51F9283D)
-I (.\i2c_uart\i2c_uart.h)(0x51F93CAB)
+I (.\i2c_uart\i2c_uart.h)(0x51F9445B)
 F (.\hardware\Stalker3_0_hw.cpp)(0x51F9285E)(--cpp -c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork -I. -Imbed -Imbed/LPC11U24 -Imbed/LPC11U24/ARM -I.\hardware -I.\tcp_yeelink -I.\i2c_uart --gnu -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\NXP\LPC11Uxx -DTARGET_LPC11U24 -DNDEBUG -DTOOLCHAIN_ARM -D__CMSIS_RTOS -D__CORTEX_M0 -o ".\build\stalker3_0_hw.o" --omf_browse ".\build\stalker3_0_hw.crf" --depend ".\build\stalker3_0_hw.d")
 I (mbed\mbed.h)(0x51F8B1F4)
 I (mbed\platform.h)(0x51F8B1F4)
@@ -151,10 +151,10 @@ I (mbed\wait_api.h)(0x51F8B1F4)
 I (mbed\sleep_api.h)(0x51F8B1F4)
 I (mbed\rtc_time.h)(0x51F8B1F4)
 I (.\tcp_yeelink\IOT_Mbed.h)(0x51F91F95)
-I (.\tcp_yeelink\IOT_MbedDfs.h)(0x51F91F95)
+I (.\tcp_yeelink\IOT_MbedDfs.h)(0x51F94A03)
 I (hardware\Stalker3_0_hw.h)(0x51F927A2)
 I (hardware\Stalker3_0_hw_dfs.h)(0x51F9283D)
-F (.\tcp_yeelink\IOT_Mbed.cpp)(0x51F930F5)(--cpp -c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork -I. -Imbed -Imbed/LPC11U24 -Imbed/LPC11U24/ARM -I.\hardware -I.\tcp_yeelink -I.\i2c_uart --gnu -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\NXP\LPC11Uxx -DTARGET_LPC11U24 -DNDEBUG -DTOOLCHAIN_ARM -D__CMSIS_RTOS -D__CORTEX_M0 -o ".\build\iot_mbed.o" --omf_browse ".\build\iot_mbed.crf" --depend ".\build\iot_mbed.d")
+F (.\tcp_yeelink\IOT_Mbed.cpp)(0x51F95285)(--cpp -c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork -I. -Imbed -Imbed/LPC11U24 -Imbed/LPC11U24/ARM -I.\hardware -I.\tcp_yeelink -I.\i2c_uart --gnu -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\NXP\LPC11Uxx -DTARGET_LPC11U24 -DNDEBUG -DTOOLCHAIN_ARM -D__CMSIS_RTOS -D__CORTEX_M0 -o ".\build\iot_mbed.o" --omf_browse ".\build\iot_mbed.crf" --depend ".\build\iot_mbed.d")
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x50F96150)
 I (mbed\mbed.h)(0x51F8B1F4)
 I (mbed\platform.h)(0x51F8B1F4)
@@ -228,9 +228,9 @@ I (mbed\wait_api.h)(0x51F8B1F4)
 I (mbed\sleep_api.h)(0x51F8B1F4)
 I (mbed\rtc_time.h)(0x51F8B1F4)
 I (tcp_yeelink\IOT_Mbed.h)(0x51F91F95)
-I (tcp_yeelink\IOT_MbedDfs.h)(0x51F91F95)
-I (tcp_yeelink\IOT_Debug.h)(0x51F91F95)
-F (.\i2c_uart\i2c_uart.cpp)(0x51F940EB)(--cpp -c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork -I. -Imbed -Imbed/LPC11U24 -Imbed/LPC11U24/ARM -I.\hardware -I.\tcp_yeelink -I.\i2c_uart --gnu -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\NXP\LPC11Uxx -DTARGET_LPC11U24 -DNDEBUG -DTOOLCHAIN_ARM -D__CMSIS_RTOS -D__CORTEX_M0 -o ".\build\i2c_uart.o" --omf_browse ".\build\i2c_uart.crf" --depend ".\build\i2c_uart.d")
+I (tcp_yeelink\IOT_MbedDfs.h)(0x51F94A03)
+I (.\i2c_uart\i2c_uart.h)(0x51F9445B)
+F (.\i2c_uart\i2c_uart.cpp)(0x51F94D8C)(--cpp -c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork -I. -Imbed -Imbed/LPC11U24 -Imbed/LPC11U24/ARM -I.\hardware -I.\tcp_yeelink -I.\i2c_uart --gnu -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\NXP\LPC11Uxx -DTARGET_LPC11U24 -DNDEBUG -DTOOLCHAIN_ARM -D__CMSIS_RTOS -D__CORTEX_M0 -o ".\build\i2c_uart.o" --omf_browse ".\build\i2c_uart.crf" --depend ".\build\i2c_uart.d")
 I (mbed\mbed.h)(0x51F8B1F4)
 I (mbed\platform.h)(0x51F8B1F4)
 I (mbed/LPC11U24/device.h)(0x51F8B1F4)
@@ -303,5 +303,5 @@ I (mbed\gpio_irq_api.h)(0x51F8B1F4)
 I (mbed\wait_api.h)(0x51F8B1F4)
 I (mbed\sleep_api.h)(0x51F8B1F4)
 I (mbed\rtc_time.h)(0x51F8B1F4)
-I (i2c_uart\i2c_uart.h)(0x51F93CAB)
+I (i2c_uart\i2c_uart.h)(0x51F9445B)
 I (.\hardware\Stalker3_0_hw_dfs.h)(0x51F9283D)

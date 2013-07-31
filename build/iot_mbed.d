@@ -77,4 +77,4 @@
 .\build\iot_mbed.o: mbed\rtc_time.h
 .\build\iot_mbed.o: tcp_yeelink\IOT_Mbed.h
 .\build\iot_mbed.o: tcp_yeelink\IOT_MbedDfs.h
-.\build\iot_mbed.o: tcp_yeelink\IOT_Debug.h
+.\build\iot_mbed.o: .\i2c_uart\i2c_uart.h

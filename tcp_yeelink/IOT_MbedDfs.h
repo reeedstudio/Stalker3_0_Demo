@@ -39,9 +39,9 @@
 #define STRCLOSE        "AT+CIPCLOSE"
 
 // err code
-#define ERRTOUT			-1
-#define NOK              0
-#define OK				 1
+#define ERRTOUT			 0 
+//#define NOK          0
+#define OK				   1
 
 
 // post data

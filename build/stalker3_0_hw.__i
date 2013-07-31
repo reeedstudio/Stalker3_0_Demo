@@ -1,5 +1,0 @@
---cpp -c --cpu Cortex-M0 -D__EVAL -g -O0 --apcs=interwork -I. -Imbed -Imbed/LPC11U24 -Imbed/LPC11U24/ARM -I.\hardware -I.\tcp_yeelink -I.\i2c_uart --gnu 
--I C:\Keil\ARM\RV31\INC 
--I C:\Keil\ARM\CMSIS\Include 
--I C:\Keil\ARM\Inc\NXP\LPC11Uxx 
--DTARGET_LPC11U24 -DNDEBUG -DTOOLCHAIN_ARM -D__CMSIS_RTOS -D__CORTEX_M0 -o ".\build\stalker3_0_hw.o" --omf_browse ".\build\stalker3_0_hw.crf" --depend ".\build\stalker3_0_hw.d" "hardware\Stalker3_0_hw.cpp"
