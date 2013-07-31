@@ -79,3 +79,4 @@
 .\build\main.o: .\tcp_yeelink\IOT_MbedDfs.h
 .\build\main.o: .\hardware\Stalker3_0_hw.h
 .\build\main.o: .\hardware\Stalker3_0_hw_dfs.h
+.\build\main.o: .\i2c_uart\i2c_uart.h

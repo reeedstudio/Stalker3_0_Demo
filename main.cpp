@@ -24,7 +24,7 @@
 #include "mbed.h"
 #include "IOT_MbedDfs.h"
 #include "Stalker3_0_hw.h"
-
+#include "i2c_uart.h"
 
 Serial serial1(P0_19, P0_18);        // tx, rx
 Timer tcnt;
@@ -35,6 +35,7 @@ char dtaUartLen = 0;
 char dtaUart1[100];
 char dtaUartLen1 = 0;
 
+
 #define HTTP_POST_URL "http://api.yeelink.net/v1.0/device/3091/sensor/4346/datapoints"
 #define YEELINK_APIKEY "9270322fd7c7683cb9ad198f3464cf0d"
 
@@ -43,9 +44,21 @@ void delay(int ms)
     wait_ms(ms);
 }
 
+void test_i2c_uart()
+{
+	for(int i=0; i<10; i++)
+	{
+		debug_i2c("hello world\r\n");
+	
+	//	wait(0.1);
+	}
+	
+	while(1);
+}
+
 int main(void) 
 {
-
+		test_i2c_uart();
     serial1.baud(115200);
     if(iot_hw.init()==1)
     {

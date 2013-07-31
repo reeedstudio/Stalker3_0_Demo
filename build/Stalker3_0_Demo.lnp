@@ -1,4 +1,4 @@
---cpu Cortex-M0 ".\build\main.o" ".\build\stalker3_0_hw.o" ".\build\iot_mbed.o" 
+--cpu Cortex-M0 ".\build\main.o" ".\build\stalker3_0_hw.o" ".\build\iot_mbed.o" ".\build\i2c_uart.o" 
 --strict --scatter "mbed/LPC11U24/ARM/LPC11U24.sct" 
 
             
@@ -14,6 +14,6 @@
             
             mbed/LPC11U24/ARM/mbed.ar
             
-            --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
 --info sizes --info totals --info unused --info veneers 
  --list ".\build\Stalker3_0_Demo.map" -o .\build\Stalker3_0_Demo.axf
