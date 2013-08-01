@@ -37,6 +37,7 @@
 #define STRSETMODE      "AT+CIPMODE=0"
 #define STRSTARTTCP     "AT+CIPSTART=\"TCP\",\"42.96.164.52\",\"80\""
 #define STRCLOSE        "AT+CIPCLOSE"
+#define STRECHOFF				"ATE0"
 
 // err code
 #define ERRTOUT			 0 

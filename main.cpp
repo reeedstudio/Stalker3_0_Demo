@@ -26,10 +26,10 @@
 #include "Stalker3_0_hw.h"
 #include "i2c_uart.h"
 
-
 Serial serial1(P0_19, P0_18);        // tx, rx
 Timer tcnt;
 
+AnalogIn light_sensor(GROVE_ADC_1);
 
 char dtaUart[100];
 char dtaUartLen = 0;
@@ -38,22 +38,38 @@ char dtaUart1[100];
 char dtaUartLen1 = 0;
 
 
-#define HTTP_POST_URL "http://api.yeelink.net/v1.0/device/3091/sensor/4346/datapoints"
-#define YEELINK_APIKEY "9270322fd7c7683cb9ad198f3464cf0d"
+#define HTTP_POST_URL "http://api.yeelink.net/v1.0/device/4190/sensor/6074/datapoints"
+#define YEELINK_APIKEY "38645582d54121679dee8104f140c29a"
 
 void delay(int ms)
 {
     wait_ms(ms);
 }
 
-#if 0
+#if 1
+
+int getAnalog()
+{
+		long sum = 0;
+		for(int i=0; i<32; i++)
+		{
+				sum += light_sensor.read_u16();
+		}
+		sum = sum >> 5;
+		
+		sum = sum >> 6;
+		
+		return sum;
+}
 void iot_demo()
 {
-
+		int dtaVal = 0;
+		IOT.init(HTTP_POST_URL, YEELINK_APIKEY);
 START:
-		EG10_PWROFF();					// eg10 power off
+		DBG("begin to start\r\n");
+		iot_hw.EG10_PWROFF();					// eg10 power off
 		wait(1);							
-		EG10_PWRON();						// eg10 power on
+		iot_hw.EG10_PWRON();						// eg10 power on
 		wait(1);
 		if(iot_hw.init()==1)
     {
@@ -69,8 +85,38 @@ START:
 		
 		DBG("wait ten second\r\n");
 		wait(10);
-		
-		
+
+	//	IOT.init(HTTP_POST_URL, YEELINK_APIKEY);
+		while(1)
+		{
+				if(!IOT.connectTCP())
+				{
+						DBG("connect to tcp err\r\n");
+						goto START;
+				}
+				
+				dtaVal = getAnalog()/10;
+				//dtaVal /= 41;
+				
+				DBG("light sensor value: ");
+				char tmp[10];
+				sprintf(tmp, "%d\r\n", dtaVal);
+				DBG(tmp);
+				
+				if(!IOT.postDtaToYeelink(HTTP_POST_URL, YEELINK_APIKEY, dtaVal))
+				{
+						DBG("post data err\r\n");
+						goto START;
+				}
+				else
+				{
+						DBG("post data ok!\r\n");
+				}
+        iot_hw.userLed(1, 1);
+        wait(.2);
+        iot_hw.userLed(1, 0);
+        wait(10);
+		}
 		
 		
 }
@@ -81,9 +127,8 @@ int main(void)
 {
 
     serial1.baud(115200);
+		iot_demo();
 	
-	
-
 	
 		DBG("begin to init hardware\r\n");
     if(iot_hw.init()==1)

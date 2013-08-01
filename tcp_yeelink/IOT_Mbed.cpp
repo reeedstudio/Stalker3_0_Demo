@@ -31,8 +31,6 @@ extern Serial serial1;        // tx, rx
 extern void delay(int ms);
 extern Timer tcnt;
 
-
-
 void IOT_Mbed::init(char *postURL, char *APIKey)
 {
     strcpy(yeelinkPostURL, postURL);
@@ -54,23 +52,18 @@ int IOT_Mbed::checkAT(int timeout)
 int IOT_Mbed::waitString(const char *str, int timeout)			    // time out : s
 {
     int len = strlen(str);
-	
-		DBG("get in waitString:\r\n");
-		char tmp[30];
-		sprintf(tmp, "len = %d\r\n", len);
-	
     int sum=0;
 
     tcnt.start();                                                   // start timer
     
     for(;;)
     {
-        while(serial1.readable())
+        if(serial1.readable())
         {
             char c = serial1.getc();
-						DBG(c);
+            DBG(c);
             sum = (c==str[sum]) ? sum+1 : 0;
-            if(sum == len)goto HERE;
+            if(sum == len)break;
         }
         
         if(tcnt.read() > timeout)           // time out
@@ -78,37 +71,27 @@ int IOT_Mbed::waitString(const char *str, int timeout)			    // time out : s
             tcnt.stop();
             tcnt.reset();
 					
-						while(serial1.readable())               // display the other thing..
-						{
-								char c = serial1.getc();
-								DBG(c);
-						}
-						
 						DBG("time out\r\n");
             return ERRTOUT;
         }
     }
-
-HERE:
+    
     tcnt.stop();                            // stop timer
     tcnt.reset();                           // clear timer
 	
     while(serial1.readable())               // display the other thing..
     {
         char c = serial1.getc();
-				DBG(c);
+        DBG(c);
     }
 
     return 1;
 }
 
+
 int IOT_Mbed::sendCmdAndWaitForRest(char *dta, const char *resq, int timeout)
 {
     sendCmd(dta);
-	//	DBG("send: ");
-	//	DBG(dta);
-	//	DBG("\r\n");
-		//wait(0.1);
     return waitString(resq, timeout);
 }
 
@@ -117,10 +100,12 @@ void IOT_Mbed::sendCmd(char *dta)
     serial1.printf("%s\r\n", dta);
 }
 
-void IOT_Mbed::connectTCP()
+int IOT_Mbed::connectTCP()
 {
     //sendCmdAndWaitForRest(STRCSQ, "OK", 10);
-		checkAT(10);
+		//checkAT(10);
+	
+		sendCmdAndWaitForRest("ATE0\r\n", "OK", 3);
 	
     while(1)
 		{
@@ -137,15 +122,17 @@ void IOT_Mbed::connectTCP()
 		}
 
 		
-    sendCmdAndWaitForRest(STRSETGPRS, "OK", 20);
-    sendCmdAndWaitForRest(STRSETAPN, "OK", 20);
+    if(!sendCmdAndWaitForRest(STRSETGPRS, "OK", 20))return 0;
+    if(!sendCmdAndWaitForRest(STRSETAPN, "OK", 20))return 0;;
     
     char cipstart[50];
     sprintf(cipstart, "AT+CIPSTART=\"TCP\",\"%s\",\"%s\"", yeelinkDns, yeelinkPort);
-    sendCmdAndWaitForRest(cipstart, "CONNECT OK", 20);              // connect tcp
+    if(!sendCmdAndWaitForRest(cipstart, "CONNECT OK", 20))return 0;;              // connect tcp
+		
+		return 1;
 }
 
-void IOT_Mbed::connectTCP(char *ip, char *port)
+int IOT_Mbed::connectTCP(char *ip, char *port)
 {
 		// open gprs
 		while(1)
@@ -195,7 +182,7 @@ void IOT_Mbed::postDtaToYeelink()
     
 }
 
-void IOT_Mbed::postDtaToYeelink(char *url, char *apikey, int sensorDta)
+int IOT_Mbed::postDtaToYeelink(char *url, char *apikey, int sensorDta)
 {
     char dtaPost[350];
     
@@ -212,7 +199,7 @@ void IOT_Mbed::postDtaToYeelink(char *url, char *apikey, int sensorDta)
     if (parseURL(url, host, sizeof(host), &port, path, sizeof(path)) != 0) 
     {
         DBG("Failed to parse URL.\r\n");
-        return ;
+        return 0;
     }
 
     sprintf(body, "{\"value\": %d}\r\n", sensorDta);
@@ -228,7 +215,7 @@ void IOT_Mbed::postDtaToYeelink(char *url, char *apikey, int sensorDta)
 				DBG(c);
     }
     
-    sendCmdAndWaitForRest(STRCLOSE, "OK", 20);
+    return sendCmdAndWaitForRest(STRCLOSE, "OK", 20);
 }
 
 int IOT_Mbed::parseURL(const char *url, char *host, int max_host_len, unsigned int *port, char *path, int max_path_len)

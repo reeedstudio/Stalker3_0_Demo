@@ -49,10 +49,10 @@ public:
 		int waitString(const char *str, int timeout);
     void init(char *postURL, char *APIKey);
     int checkAT(int timeout);
-    void connectTCP();
-    void connectTCP(char *ip, char *port);
+    int connectTCP();
+    int connectTCP(char *ip, char *port);
     void postDtaToYeelink();
-    void postDtaToYeelink(char *url, char *apikey, int sensorDta);
+    int postDtaToYeelink(char *url, char *apikey, int sensorDta);
     
     int sendDtaTcp(char *dta, int timeout);
     bool sendToYeelink_t();
