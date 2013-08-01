@@ -4,7 +4,7 @@
 
   Author:Loovee
   2013-7-21
- 
+
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
@@ -37,12 +37,12 @@
 #define STRSETMODE      "AT+CIPMODE=0"
 #define STRSTARTTCP     "AT+CIPSTART=\"TCP\",\"42.96.164.52\",\"80\""
 #define STRCLOSE        "AT+CIPCLOSE"
-#define STRECHOFF				"ATE0"
+#define STRECHOFF                "ATE0"
 
 // err code
-#define ERRTOUT			 0 
+#define ERRTOUT             0
 //#define NOK          0
-#define OK				   1
+#define OK                   1
 
 
 // post data

@@ -27,33 +27,33 @@
 
 class IOT_Mbed{
 
-private:
+    private:
 
     //Serial serial1(P0_19, P0_18);        // tx, rx
-private:
+    private:
     char yeelinkPostURL[100];
     char yeelinkPostHeads[100];
-    
+
     char yeelinkDns[20];
     char yeelinkPort[10];
-    
-private:
-	
-		void callTest();
-    
+
+    private:
+
+    void callTest();
+
     int sendCmdAndWaitForRest(char *dta, const char *resq, int timeout);
     void sendCmd(char *dta);
     int parseURL(const char *url, char *host, int max_host_len, unsigned int *port, char *path, int max_path_len);
 
-public:
-		int waitString(const char *str, int timeout);
+    public:
+    int waitString(const char *str, int timeout);
     void init(char *postURL, char *APIKey);
     int checkAT(int timeout);
     int connectTCP();
     int connectTCP(char *ip, char *port);
     void postDtaToYeelink();
     int postDtaToYeelink(char *url, char *apikey, int sensorDta);
-    
+
     int sendDtaTcp(char *dta, int timeout);
     bool sendToYeelink_t();
 

@@ -28,7 +28,7 @@
 #define PINONOFF        P1_7            // switch of EG10, low enable, low for 2s to turn on EG10
 #define PINTX           P0_18           // EG10 TX
 #define PINRX           P0_19           // EG10 RX
-#define PINSYSRST       P1_6            // EG10 RST，high enable              
+#define PINSYSRST       P1_6            // EG10 RST，high enable
 #define PINEGSTATE      P1_15           // in and out, read eg10 state, HIGH: on, LOW: off
 
 
@@ -42,10 +42,10 @@
 #define GROVE_ADC_1     P0_12           // grove ADC, the outside one
 #define GROVE_ADC_2     P0_11           // grove ADC, the other one
 
-#define GROVE_PWR   		P1_3            // control all grove power, low enable
+#define GROVE_PWR       P1_3            // control all grove power, low enable
 
 // charge circuit
-#define PIN_CHRGING     P1_1            // charging, low enable 
+#define PIN_CHRGING     P1_1            // charging, low enable
 #define PIN_CHRGDONE    P1_0            // charge done
 #define PIN_READBAT     P0_23           // battery voltage in, the value should x2
 

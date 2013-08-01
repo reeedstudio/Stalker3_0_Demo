@@ -21,7 +21,7 @@
 */
 
 #include "mbed.h"
-#include "IOT_Mbed.h" 
+#include "IOT_Mbed.h"
 #include "IOT_MbedDfs.h"
 #include "Stalker3_0_hw.h"
 #include "Stalker3_0_hw_dfs.h"
@@ -86,7 +86,7 @@ int IOT_HW::getEG10_State()
     }
     return 0;
 }
- 
+
 void IOT_HW::EG10StateLed(unsigned char state)
 {
     eg10_state.output();
@@ -95,7 +95,7 @@ void IOT_HW::EG10StateLed(unsigned char state)
 
 void IOT_HW::userLed(unsigned char led, unsigned char state)
 {
-//    if(state!=0 || state!=1)return;
+    //    if(state!=0 || state!=1)return;
 
     if(1==led)led1 = state;
     else if(2==led)led2 = state;
@@ -117,7 +117,7 @@ float IOT_HW::readBatVol()
     float dr = tmp;
     dr = dr/65536.0*3.3*2.0;
     return dr;
-   // return ((float tmp)/65536.0*3.3*2.0);
+    // return ((float tmp)/65536.0*3.3*2.0);
 }
 
 void IOT_HW::grovePwrOn()

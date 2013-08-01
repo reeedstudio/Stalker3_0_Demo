@@ -27,35 +27,36 @@
 //#include "IOT_Debug.h"
 #include "i2c_uart.h"
 
-extern Serial serial1;        // tx, rx
-extern void delay(int ms);
-extern Timer tcnt;
+
+Serial serial1(P0_19, P0_18);        // tx, rx
+Timer tcnt;
 
 void IOT_Mbed::init(char *postURL, char *APIKey)
 {
+    serial1.baud(115200);
     strcpy(yeelinkPostURL, postURL);
     sprintf(yeelinkPostHeads, "U-ApiKey: %s\r\n", APIKey);
-    strcpy(yeelinkDns, "42.96.164.52");                     		// api.yeelink.net
+    strcpy(yeelinkDns, "42.96.164.52");                             // api.yeelink.net
     sprintf(yeelinkPort, "%d", HTTP_DEFAULT_PORT);
 }
 
 void IOT_Mbed::callTest()
 {
-		sendCmdAndWaitForRest("ATD:10086;\r\n", "OK", 10);
+    sendCmdAndWaitForRest("ATD:10086;\r\n", "OK", 10);
 }
 
 int IOT_Mbed::checkAT(int timeout)
 {
-		return sendCmdAndWaitForRest("AT\r\n", "OK", timeout);
+    return sendCmdAndWaitForRest("AT\r\n", "OK", timeout);
 }
 
-int IOT_Mbed::waitString(const char *str, int timeout)			    // time out : s
+int IOT_Mbed::waitString(const char *str, int timeout)                // time out : s
 {
     int len = strlen(str);
     int sum=0;
 
     tcnt.start();                                                   // start timer
-    
+
     for(;;)
     {
         if(serial1.readable())
@@ -65,20 +66,20 @@ int IOT_Mbed::waitString(const char *str, int timeout)			    // time out : s
             sum = (c==str[sum]) ? sum+1 : 0;
             if(sum == len)break;
         }
-        
+
         if(tcnt.read() > timeout)           // time out
         {
             tcnt.stop();
             tcnt.reset();
-					
-						DBG("time out\r\n");
+
+            DBG("time out\r\n");
             return ERRTOUT;
         }
     }
-    
+
     tcnt.stop();                            // stop timer
     tcnt.reset();                           // clear timer
-	
+
     while(serial1.readable())               // display the other thing..
     {
         char c = serial1.getc();
@@ -102,61 +103,67 @@ void IOT_Mbed::sendCmd(char *dta)
 
 int IOT_Mbed::connectTCP()
 {
-    //sendCmdAndWaitForRest(STRCSQ, "OK", 10);
-		//checkAT(10);
-	
-		sendCmdAndWaitForRest("ATE0\r\n", "OK", 3);
-	
-    while(1)
-		{
-				if(sendCmdAndWaitForRest(STROPENGPRS, "OK", 20) == ERRTOUT)
-				{
-						DBG("GPRS OPEN ERR, OPEN AGAIN\r\n");
-						wait(5);
-				}
-				else
-				{
-						DBG("GPRS OPEN OK!\r\n");
-						break;
-				}
-		}
 
-		
+    sendCmdAndWaitForRest("ATE0\r\n", "OK", 3);
+    int tout = 0;
+    while(1)
+    {
+        if(sendCmdAndWaitForRest(STROPENGPRS, "OK", 20) == ERRTOUT)
+        {
+            DBG("GPRS OPEN ERR, OPEN AGAIN\r\n");
+            wait(5);
+        }
+        else
+        {
+            DBG("GPRS OPEN OK!\r\n");
+            break;
+        }
+        tout++;
+        if(tout>5)return 0;
+    }
+
+
     if(!sendCmdAndWaitForRest(STRSETGPRS, "OK", 20))return 0;
     if(!sendCmdAndWaitForRest(STRSETAPN, "OK", 20))return 0;;
-    
+
     char cipstart[50];
     sprintf(cipstart, "AT+CIPSTART=\"TCP\",\"%s\",\"%s\"", yeelinkDns, yeelinkPort);
     if(!sendCmdAndWaitForRest(cipstart, "CONNECT OK", 20))return 0;;              // connect tcp
-		
-		return 1;
+
+    return 1;
 }
 
 int IOT_Mbed::connectTCP(char *ip, char *port)
 {
-		// open gprs
-		while(1)
-		{
-				if(sendCmdAndWaitForRest(STROPENGPRS, "OK", 20) == ERRTOUT)
-				{
-						DBG("GPRS OPEN ERR, OPEN AGAIN\r\n");
-						wait(5);
-				}
-				else
-				{
-						DBG("GPRS OPEN OK!\r\n");
-						break;
-				}
-		}
+
+    sendCmdAndWaitForRest("ATE0\r\n", "OK", 3);
+    int tout = 0;
+
+    while(1)
+    {
+        if(sendCmdAndWaitForRest(STROPENGPRS, "OK", 20) == ERRTOUT)
+        {
+            DBG("GPRS OPEN ERR, OPEN AGAIN\r\n");
+            wait(5);
+        }
+        else
+        {
+            DBG("GPRS OPEN OK!\r\n");
+            break;
+        }
+        tout++;
+        if(tout>5)return 0;
+    }
 
 
-    sendCmdAndWaitForRest(STRSETGPRS, "OK", 20);
-    sendCmdAndWaitForRest(STRSETAPN, "OK", 20);
-    
+    if(!sendCmdAndWaitForRest(STRSETGPRS, "OK", 20))return 0;
+    if(!sendCmdAndWaitForRest(STRSETAPN, "OK", 20))return 0;;
+
     char cipstart[50];
     sprintf(cipstart, "AT+CIPSTART=\"TCP\",\"%s\",\"%s\"", ip, port);
-    sendCmdAndWaitForRest(cipstart, "CONNECT OK", 20);              // connect tcp
-    
+    if(!sendCmdAndWaitForRest(cipstart, "CONNECT OK", 20))return 0;;              // connect tcp
+    return 1;
+
 }
 
 //send data to tcp
@@ -165,8 +172,8 @@ int IOT_Mbed::sendDtaTcp(char *dta, int timeout)
     serial1.printf("AT+CIPSEND=%d\r\n", strlen(dta));
     waitString(">", 10);
     serial1.printf("%s", dta);
-    
-    delay(50);
+
+    wait_ms(50);
     return waitString("SEND OK", timeout);
 }
 
@@ -179,26 +186,32 @@ bool IOT_Mbed::sendToYeelink_t()
 
 void IOT_Mbed::postDtaToYeelink()
 {
-    
+
 }
 
 int IOT_Mbed::postDtaToYeelink(char *url, char *apikey, int sensorDta)
 {
     char dtaPost[350];
-    
+
     char request[100];
     char heads[200];
     char body[100];
-	
+
     unsigned int port;
-    
-    
+
+
     char host[HTTP_MAX_HOST_LEN];
     char path[HTTP_MAX_PATH_LEN];
-  
-    if (parseURL(url, host, sizeof(host), &port, path, sizeof(path)) != 0) 
+
+    if (parseURL(url, host, sizeof(host), &port, path, sizeof(path)) != 0)
     {
         DBG("Failed to parse URL.\r\n");
+        return 0;
+    }
+
+    if(!connectTCP())
+    {
+        DBG("connect to tcp err!\r\n");
         return 0;
     }
 
@@ -208,13 +221,13 @@ int IOT_Mbed::postDtaToYeelink(char *url, char *apikey, int sensorDta)
     sprintf(dtaPost, "%s%s%s", request, heads, body);
 
     sendDtaTcp(dtaPost, 10);
-    
+
     while(serial1.readable())
     {
         char c = serial1.getc();
-				DBG(c);
+        DBG(c);
     }
-    
+
     return sendCmdAndWaitForRest(STRCLOSE, "OK", 20);
 }
 
@@ -255,7 +268,7 @@ int IOT_Mbed::parseURL(const char *url, char *host, int max_host_len, unsigned i
     }
 
     char *path_ptr = strchr(host_ptr, '/');
-    
+
     if (host_len == 0)
     {
         host_len = path_ptr - host_ptr;
@@ -266,12 +279,12 @@ int IOT_Mbed::parseURL(const char *url, char *host, int max_host_len, unsigned i
         DBG("Host buffer is too small.\r\n");
         return -4;
     }
-    
+
     memcpy(host, host_ptr, host_len);
     host[host_len] = '\0';
 
     int path_len;
-    
+
     char *fragment_ptr = strchr(host_ptr, '#');
     if (fragment_ptr != NULL)
     {

@@ -1,10 +1,10 @@
 #ifndef __I2C_UART_H__
 #define __I2C_UART_H__
 
-#define __Debug			1
+#define __Debug            0
 
 #if __Debug
-#define DBG(X)	debug_i2c(X)
+#define DBG(X)    debug_i2c(X)
 #else
 #define DBG(X)
 #endif
