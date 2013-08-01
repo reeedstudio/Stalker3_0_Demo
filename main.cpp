@@ -33,6 +33,21 @@ AnalogIn light_sensor(GROVE_ADC_1);
 #define HTTP_POST_URL "http://api.yeelink.net/v1.0/device/4190/sensor/6074/datapoints"
 #define YEELINK_APIKEY "38645582d54121679dee8104f140c29a"
 
+void delay_ms(long ms)
+{
+    if(ms <= 900)
+    {
+        wait_ms(ms);
+        wdt_sleep.feed();
+    }
+    else
+    {
+        ms -= 900;
+        delay_ms(900);
+    }
+    
+}
+
 int getAnalog()
 {
     long sum = 0;
@@ -48,7 +63,7 @@ int getAnalog()
 void power_on()
 {
     IOT.init(HTTP_POST_URL, YEELINK_APIKEY);
-START:
+    START:
     DBG("begin to start\r\n");
     iot_hw.EG10_PWROFF();                           // eg10 power off
     wait(1);
@@ -73,7 +88,7 @@ void iot_demo()
 {
 
 
-PWRON:
+    PWRON:
     power_on();
     wait(10);
     while(1)
@@ -106,56 +121,55 @@ PWRON:
 void wdt_sleep_demo()
 {
     DBG("begin to poweron\r\n");
-    power_on();
-    wdt_sleep.wdtClkSetup(WDTCLK_SRC_IRC_OSC); 
-   
+   // power_on();
+    wdt_sleep.wdtClkSetup(WDTCLK_SRC_IRC_OSC);
+
     // start led
     for(int i=0; i<5; i++)
     {
         iot_hw.userLed(2, 1);wait_ms(100);
         iot_hw.userLed(2, 0);wait_ms(100);
     }
-		
-		
-		// cut power
-		
-		iot_hw.EG10_PWROFF();
-		iot_hw.grovePwrOff();
-		
-		// init wdt
-    wdt_sleep.wdtInit(0xffffff, MODE_SLEEP);
-		
-		
-		
+
+
+    // cut power
+
+    iot_hw.EG10_PWROFF();
+    iot_hw.grovePwrOff();
+
     while(1)
     {
-        //wdt_sleep.feed();
-        //wait(0.2);
-        //DBG("hello\r\n");
-			
-				DBG("sleep\r\n");
-				wait(0.1);
-				wdt_sleep.gotoSleep();
-			
-				DBG("wake\r\n");
-			
-				for(int i=0; i<5; i++)
-				{
-						wait(1);
-						wdt_sleep.feed();
-				}
-			
-				
-			
-    
-    }
+#if 0
+        DBG("sleep\r\n");
+        wait(0.1);
+        wdt_sleep.gotoSleep();
+        DBG("wake\r\n");
+        for(int i=0; i<5; i++)
+        {
+            wait(1);
+            wdt_sleep.feed();
+        }
+#else
+        DBG("sleep 5s\r\n");
+        wait(0.1);
+        wdt_sleep.sleep(60);
+        
+        DBG("wake\r\n");
+        for(int i=0; i<10; i++)
+        {
+            wait(0.5);
+            wdt_sleep.feed();
+        }
+        
 
+#endif
+    }
 }
 
 
 int main(void)
 {
-wdt_sleep_demo();
+    wdt_sleep_demo();
     //iot_demo();
 }
 

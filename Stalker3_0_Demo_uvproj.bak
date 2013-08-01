@@ -350,7 +350,7 @@
               <MiscControls>--gnu</MiscControls>
               <Define>TARGET_LPC11U24, NDEBUG, TOOLCHAIN_ARM, __CMSIS_RTOS, __CORTEX_M0</Define>
               <Undefine></Undefine>
-              <IncludePath>.;mbed;mbed/LPC11U24;mbed/LPC11U24/ARM;.\hardware;.\tcp_yeelink;.\SoftwareSerial</IncludePath>
+              <IncludePath>.;mbed;mbed/LPC11U24;mbed/LPC11U24/ARM;.\hardware;.\tcp_yeelink;.\i2c_uart;.\Stalker3_0_sleep</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -395,7 +395,7 @@
             
             mbed/LPC11U24/ARM/mbed.ar
             
-            </Misc>
+</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -433,12 +433,22 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>softserial</GroupName>
+          <GroupName>i2c_uart</GroupName>
           <Files>
             <File>
-              <FileName>SoftwareSerial.cpp</FileName>
+              <FileName>i2c_uart.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\SoftwareSerial\SoftwareSerial.cpp</FilePath>
+              <FilePath>.\i2c_uart\i2c_uart.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>sleep</GroupName>
+          <Files>
+            <File>
+              <FileName>Stalker3_0_sleep.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\Stalker3_0_sleep\Stalker3_0_sleep.cpp</FilePath>
             </File>
           </Files>
         </Group>

@@ -26,7 +26,7 @@
 
 class Stalker3_0_sleep{
 
-    private:
+    public:
 
     int workMode;                 // working mode, sleep or working
 
@@ -42,7 +42,7 @@ class Stalker3_0_sleep{
     void sleep(long ts);            // sleep for ts (s)
     void wakeUp();                  // wake up from sleep
     void feed();                    // watch dog feed
-    void wdtInit(long tc, int mode);          // init wdt
+    void wdtInit(long tc);          // init wdt
 };
 
 extern Stalker3_0_sleep wdt_sleep;

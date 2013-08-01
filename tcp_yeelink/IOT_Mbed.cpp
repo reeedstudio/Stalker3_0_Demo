@@ -24,8 +24,8 @@
 #include "mbed.h"
 #include "IOT_Mbed.h"
 #include "IOT_MbedDfs.h"
-//#include "IOT_Debug.h"
 #include "i2c_uart.h"
+#include "Stalker3_0_sleep.h"
 
 
 Serial serial1(P0_19, P0_18);        // tx, rx
@@ -75,6 +75,8 @@ int IOT_Mbed::waitString(const char *str, int timeout)                // time ou
             DBG("time out\r\n");
             return ERRTOUT;
         }
+        
+        wdt_sleep.feed();
     }
 
     tcnt.stop();                            // stop timer
