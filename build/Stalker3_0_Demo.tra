@@ -1,0 +1,38 @@
+*** Creating Trace Output File '.\build\Stalker3_0_Demo.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\build\main.o"'
+### List of Objects: adding '".\build\stalker3_0_hw.o"'
+### List of Objects: adding '".\build\iot_mbed.o"'
+### List of Objects: adding '".\build\i2c_uart.o"'
+### List of Objects: adding '".\build\stalker3_0_sleep.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M0 ".\build\main.o" ".\build\stalker3_0_hw.o" ".\build\iot_mbed.o" ".\build\i2c_uart.o" ".\build\stalker3_0_sleep.o" 
+--strict --scatter "mbed/LPC11U24/ARM/LPC11U24.sct" 
+
+            
+            mbed/LPC11U24/ARM/system_LPC11Uxx.o
+            
+            mbed/LPC11U24/ARM/sys.o
+            
+            mbed/LPC11U24/ARM/cmsis_nvic.o
+            
+            mbed/LPC11U24/ARM/startup_LPC11xx.o
+            
+            mbed/LPC11U24/ARM/core_cm0.o
+            
+            mbed/LPC11U24/ARM/mbed.ar
+            
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\build\Stalker3_0_Demo.map" -o .\build\Stalker3_0_Demo.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\build\Stalker3_0_Demo.axf'
+### ADS-LD Command File: '.\build\Stalker3_0_Demo.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\build\Stalker3_0_Demo.lnp', Handle=0x00000438
+### Writing '.lnp' file
+### ADS-LD Command file '.\build\Stalker3_0_Demo.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

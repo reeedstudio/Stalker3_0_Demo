@@ -57,6 +57,7 @@ class IOT_Mbed{
     int sendDtaTcp(char *dta, int timeout);
     bool sendToYeelink_t();
 
+
 };
 
 

@@ -53,6 +53,7 @@ void sleep(void);
  * Flash re-programming and the USB serial port will remain active, but the mbed program will no longer be
  * able to access the LocalFileSystem
  */
+
 void deepsleep(void);
 
 #ifdef __cplusplus

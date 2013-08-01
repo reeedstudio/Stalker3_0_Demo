@@ -25,13 +25,28 @@
 #include "IOT_MbedDfs.h"
 #include "Stalker3_0_hw.h"
 #include "i2c_uart.h"
-
+#include "Stalker3_0_sleep.h"
 
 AnalogIn light_sensor(GROVE_ADC_1);
 
 // you can get this information in www.yeelink.net
 #define HTTP_POST_URL "http://api.yeelink.net/v1.0/device/4190/sensor/6074/datapoints"
 #define YEELINK_APIKEY "38645582d54121679dee8104f140c29a"
+
+void delay_ms(long ms)
+{
+    if(ms <= 900)
+    {
+        wait_ms(ms);
+        wdt_sleep.feed();
+    }
+    else
+    {
+        ms -= 900;
+        delay_ms(900);
+    }
+    
+}
 
 int getAnalog()
 {
@@ -41,18 +56,14 @@ int getAnalog()
         sum += light_sensor.read_u16();
     }
     sum = sum >> 5;
-
     sum = sum >> 6;
-
     return sum;
 }
 
-void iot_demo()
+void power_on()
 {
-
     IOT.init(HTTP_POST_URL, YEELINK_APIKEY);
-
-START:
+    START:
     DBG("begin to start\r\n");
     iot_hw.EG10_PWROFF();                           // eg10 power off
     wait(1);
@@ -71,14 +82,19 @@ START:
         goto START;
     }
 
-    DBG("wait ten second\r\n");
-    wait(10);
+}
 
+void iot_demo()
+{
+
+
+    PWRON:
+    power_on();
+    wait(10);
     while(1)
     {
 
         int dtaVal = getAnalog()/10;
-        //dtaVal /= 41;
 
         DBG("light sensor value: ");
         char tmp[10];
@@ -88,7 +104,7 @@ START:
         if(!IOT.postDtaToYeelink(HTTP_POST_URL, YEELINK_APIKEY, dtaVal))
         {
             DBG("post data err\r\n");
-            goto START;
+            goto PWRON;
         }
         else
         {
@@ -102,10 +118,59 @@ START:
 
 }
 
+void wdt_sleep_demo()
+{
+    DBG("begin to poweron\r\n");
+   // power_on();
+    wdt_sleep.wdtClkSetup(WDTCLK_SRC_IRC_OSC);
+
+    // start led
+    for(int i=0; i<5; i++)
+    {
+        iot_hw.userLed(2, 1);wait_ms(100);
+        iot_hw.userLed(2, 0);wait_ms(100);
+    }
+
+
+    // cut power
+
+    iot_hw.EG10_PWROFF();
+    iot_hw.grovePwrOff();
+
+    while(1)
+    {
+#if 0
+        DBG("sleep\r\n");
+        wait(0.1);
+        wdt_sleep.gotoSleep();
+        DBG("wake\r\n");
+        for(int i=0; i<5; i++)
+        {
+            wait(1);
+            wdt_sleep.feed();
+        }
+#else
+        DBG("sleep 5s\r\n");
+        wait(0.1);
+        wdt_sleep.sleep(60);
+        
+        DBG("wake\r\n");
+        for(int i=0; i<10; i++)
+        {
+            wait(0.5);
+            wdt_sleep.feed();
+        }
+        
+
+#endif
+    }
+}
+
+
 int main(void)
 {
-
-    iot_demo();
+    wdt_sleep_demo();
+    //iot_demo();
 }
 
 /*********************************************************************************************************

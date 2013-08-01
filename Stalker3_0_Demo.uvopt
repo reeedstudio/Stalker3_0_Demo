@@ -163,7 +163,7 @@
 
   <Group>
     <GroupName>src</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -173,10 +173,15 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>5</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>73</TopLine>
       <CurrentLine>1</CurrentLine>
+=======
+      <TopLine>22</TopLine>
+      <CurrentLine>32</CurrentLine>
+>>>>>>> testSleep
       <bDave2>0</bDave2>
       <PathWithFileName>main.cpp</PathWithFileName>
       <FilenameWithoutPath>main.cpp</FilenameWithoutPath>
@@ -199,8 +204,13 @@
       <Focus>0</Focus>
       <ColumnNumber>26</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
+=======
+      <TopLine>16</TopLine>
+      <CurrentLine>26</CurrentLine>
+>>>>>>> testSleep
       <bDave2>0</bDave2>
       <PathWithFileName>.\hardware\Stalker3_0_hw.cpp</PathWithFileName>
       <FilenameWithoutPath>Stalker3_0_hw.cpp</FilenameWithoutPath>
@@ -221,10 +231,15 @@
       <FileType>8</FileType>
       <tvExp>1</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>22</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>22</TopLine>
       <CurrentLine>23</CurrentLine>
+=======
+      <TopLine>17</TopLine>
+      <CurrentLine>27</CurrentLine>
+>>>>>>> testSleep
       <bDave2>0</bDave2>
       <PathWithFileName>.\tcp_yeelink\IOT_Mbed.cpp</PathWithFileName>
       <FilenameWithoutPath>IOT_Mbed.cpp</FilenameWithoutPath>
@@ -259,7 +274,11 @@
 
   <Group>
     <GroupName>sleep</GroupName>
+<<<<<<< HEAD
     <tvExp>0</tvExp>
+=======
+    <tvExp>1</tvExp>
+>>>>>>> testSleep
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -267,12 +286,21 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>5</FileNumber>
       <FileType>8</FileType>
+<<<<<<< HEAD
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>30</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>64</TopLine>
       <CurrentLine>92</CurrentLine>
+=======
+      <tvExp>1</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>11</TopLine>
+      <CurrentLine>20</CurrentLine>
+>>>>>>> testSleep
       <bDave2>0</bDave2>
       <PathWithFileName>.\Stalker3_0_sleep\Stalker3_0_sleep.cpp</PathWithFileName>
       <FilenameWithoutPath>Stalker3_0_sleep.cpp</FilenameWithoutPath>
