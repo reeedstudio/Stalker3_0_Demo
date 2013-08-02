@@ -31,6 +31,9 @@ AnalogIn light_sensor(GROVE_ADC_1);
 
 // you can get this information in www.yeelink.net
 #define HTTP_POST_URL "http://api.yeelink.net/v1.0/device/4190/sensor/6074/datapoints"
+
+//#define HTTP_POST_URL_BAT "http://api.yeelink.net/v1.0/device/4190/sensor/6089/datapoints"
+
 #define YEELINK_APIKEY "38645582d54121679dee8104f140c29a"
 
 void delay_ms(long ms)
@@ -66,9 +69,11 @@ void power_on()
     START:
     DBG("begin to start\r\n");
     iot_hw.EG10_PWROFF();                           // eg10 power off
-    wait(1);
+    wait(0.5);
+		wdt_sleep.feed();
     iot_hw.EG10_PWRON();                            // eg10 power on
-    wait(1);
+    wait(0.5);
+		wdt_sleep.feed();
 
     if(iot_hw.init()==1)
     {
@@ -81,7 +86,7 @@ void power_on()
         DBG("hardware init again\r\n");
         goto START;
     }
-
+		wdt_sleep.feed();
 }
 
 void iot_demo()
@@ -90,32 +95,38 @@ void iot_demo()
 
     PWRON:
     power_on();
-    wait(10);
+    for(int i=0; i<10; i++)
+		{
+				wdt_sleep.feed();
+				wait(0.9);
+				wdt_sleep.feed();
+		}
+    int dtaSw = 0;
     while(1)
     {
 
         int dtaVal = getAnalog()/10;
 
-        DBG("light sensor value: ");
-        char tmp[10];
-        sprintf(tmp, "%d\r\n", dtaVal);
-        DBG(tmp);
+            if(!IOT.postDtaToYeelink(HTTP_POST_URL, YEELINK_APIKEY, dtaVal))
+            {
+                DBG("post data err\r\n");
+								wdt_sleep.feed();
+                goto PWRON;
+            }
+            else
+            {
+                DBG("post data ok!\r\n");
+            }
 
-        if(!IOT.postDtaToYeelink(HTTP_POST_URL, YEELINK_APIKEY, dtaVal))
-        {
-            DBG("post data err\r\n");
-            goto PWRON;
-        }
-        else
-        {
-            DBG("post data ok!\r\n");
-        }
         iot_hw.userLed(1, 1);
         wait(.2);
         iot_hw.userLed(1, 0);
-        wait(10);
+						
+				//iot_hw.EG10_PWROFF();
+				//iot_hw.grovePwrOff();
+        //wdt_sleep.sleep(60);
+				wait(10);
     }
-
 }
 
 void wdt_sleep_demo()
@@ -133,7 +144,11 @@ void wdt_sleep_demo()
 
 
     // cut power
-
+		for(int i=0; i<10; i++)
+		{
+				wait(0.1);
+				wdt_sleep.feed();
+		}
     iot_hw.EG10_PWROFF();
     iot_hw.grovePwrOff();
 
@@ -142,7 +157,7 @@ void wdt_sleep_demo()
 #if 0
         DBG("sleep\r\n");
         wait(0.1);
-        wdt_sleep.gotoSleep();
+        //wdt_sleep.gotoSleep();
         DBG("wake\r\n");
         for(int i=0; i<5; i++)
         {
@@ -169,8 +184,8 @@ void wdt_sleep_demo()
 
 int main(void)
 {
-    wdt_sleep_demo();
-    //iot_demo();
+    //wdt_sleep_demo();
+    iot_demo();
 }
 
 /*********************************************************************************************************

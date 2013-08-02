@@ -27,7 +27,7 @@
     <TargetOption>
       <CLKADS>12000000</CLKADS>
       <OPTTT>
-        <gFlags>1</gFlags>
+        <gFlags>0</gFlags>
         <BeepAtEnd>1</BeepAtEnd>
         <RunSim>1</RunSim>
         <RunTarget>0</RunTarget>
@@ -119,13 +119,6 @@
         <tIfile></tIfile>
         <pMon>BIN\CMSIS_AGDI.dll</pMon>
       </DebugOpt>
-      <TargetDriverDllRegistry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>CMSIS_AGDI</Key>
-          <Name>-X"MBED CMSIS-DAP" -UA000000001 -O206 -S0 -C0 -N00("ARM CoreSight SW-DP") -D00(0BB11477) -L00(0) -FO15 -FD10000000 -FC800 -FN1 -FF0LPC1xxx_32 -FS00 -FL08000</Name>
-        </SetRegEntry>
-      </TargetDriverDllRegistry>
       <Breakpoint/>
       <DebugFlag>
         <trace>0</trace>
@@ -163,7 +156,7 @@
 
   <Group>
     <GroupName>src</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -173,15 +166,10 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>5</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-<<<<<<< HEAD
-      <TopLine>73</TopLine>
-      <CurrentLine>1</CurrentLine>
-=======
-      <TopLine>22</TopLine>
-      <CurrentLine>32</CurrentLine>
->>>>>>> testSleep
+      <TopLine>97</TopLine>
+      <CurrentLine>120</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>main.cpp</PathWithFileName>
       <FilenameWithoutPath>main.cpp</FilenameWithoutPath>
@@ -192,7 +180,7 @@
 
   <Group>
     <GroupName>hardware</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -200,17 +188,12 @@
       <GroupNumber>2</GroupNumber>
       <FileNumber>2</FileNumber>
       <FileType>8</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>26</ColumnNumber>
+      <ColumnNumber>18</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-<<<<<<< HEAD
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
-=======
-      <TopLine>16</TopLine>
-      <CurrentLine>26</CurrentLine>
->>>>>>> testSleep
+      <TopLine>98</TopLine>
+      <CurrentLine>127</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\hardware\Stalker3_0_hw.cpp</PathWithFileName>
       <FilenameWithoutPath>Stalker3_0_hw.cpp</FilenameWithoutPath>
@@ -229,17 +212,12 @@
       <GroupNumber>3</GroupNumber>
       <FileNumber>3</FileNumber>
       <FileType>8</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>22</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-<<<<<<< HEAD
-      <TopLine>22</TopLine>
-      <CurrentLine>23</CurrentLine>
-=======
-      <TopLine>17</TopLine>
-      <CurrentLine>27</CurrentLine>
->>>>>>> testSleep
+      <TopLine>258</TopLine>
+      <CurrentLine>281</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\tcp_yeelink\IOT_Mbed.cpp</PathWithFileName>
       <FilenameWithoutPath>IOT_Mbed.cpp</FilenameWithoutPath>
@@ -250,7 +228,7 @@
 
   <Group>
     <GroupName>i2c_uart</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -274,11 +252,7 @@
 
   <Group>
     <GroupName>sleep</GroupName>
-<<<<<<< HEAD
     <tvExp>0</tvExp>
-=======
-    <tvExp>1</tvExp>
->>>>>>> testSleep
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -286,21 +260,12 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>5</FileNumber>
       <FileType>8</FileType>
-<<<<<<< HEAD
       <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <ColumnNumber>30</ColumnNumber>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>64</TopLine>
-      <CurrentLine>92</CurrentLine>
-=======
-      <tvExp>1</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>11</TopLine>
-      <CurrentLine>20</CurrentLine>
->>>>>>> testSleep
+      <TopLine>51</TopLine>
+      <CurrentLine>77</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Stalker3_0_sleep\Stalker3_0_sleep.cpp</PathWithFileName>
       <FilenameWithoutPath>Stalker3_0_sleep.cpp</FilenameWithoutPath>

@@ -114,6 +114,8 @@ int IOT_HW::readChrgState()
 float IOT_HW::readBatVol()
 {
     unsigned int tmp = vol_bat.read_u16();
+	
+		return tmp;
     float dr = tmp;
     dr = dr/65536.0*3.3*2.0;
     return dr;

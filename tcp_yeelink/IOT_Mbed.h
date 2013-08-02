@@ -53,6 +53,7 @@ class IOT_Mbed{
     int connectTCP(char *ip, char *port);
     void postDtaToYeelink();
     int postDtaToYeelink(char *url, char *apikey, int sensorDta);
+    int postDtaToYeelink(char *url, char *apikey, float sensorDta, int dec);
 
     int sendDtaTcp(char *dta, int timeout);
     bool sendToYeelink_t();

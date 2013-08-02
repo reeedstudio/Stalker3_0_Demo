@@ -193,6 +193,11 @@ void IOT_Mbed::postDtaToYeelink()
 
 int IOT_Mbed::postDtaToYeelink(char *url, char *apikey, int sensorDta)
 {
+    return postDtaToYeelink(url, apikey, sensorDta, 0);
+}
+
+int IOT_Mbed::postDtaToYeelink(char *url, char *apikey, float sensorDta, int dec)
+{
     char dtaPost[350];
 
     char request[100];
@@ -200,7 +205,6 @@ int IOT_Mbed::postDtaToYeelink(char *url, char *apikey, int sensorDta)
     char body[100];
 
     unsigned int port;
-
 
     char host[HTTP_MAX_HOST_LEN];
     char path[HTTP_MAX_PATH_LEN];
@@ -217,7 +221,23 @@ int IOT_Mbed::postDtaToYeelink(char *url, char *apikey, int sensorDta)
         return 0;
     }
 
-    sprintf(body, "{\"value\": %d}\r\n", sensorDta);
+    if(dec == 0)
+    {
+        sprintf(body, "{\"value\": %.0f}\r\n", sensorDta);
+    }
+    else if(dec == 1)
+    {
+        sprintf(body, "{\"value\": %.1f}\r\n", sensorDta);
+    }
+    else if(dec == 2)
+    {
+        sprintf(body, "{\"value\": %.2f}\r\n", sensorDta);
+    }
+    else
+    {
+        sprintf(body, "{\"value\": %.3f}\r\n", sensorDta);
+
+    }
     sprintf(request, "POST %s HTTP/1.1\r\n", path);
     sprintf(heads, "Host: %s\r\nU-ApiKey: %s\r\nContent-Length: %d\r\nContent-Type: %s\r\n\r\n",host, apikey, strlen(body), CONTENT_TYPE);
     sprintf(dtaPost, "%s%s%s", request, heads, body);
